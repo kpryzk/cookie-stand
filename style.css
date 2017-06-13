@@ -1,21 +1,27 @@
 * {
   /*outline: 1px dotted orange;*/
+  font-family: 'Spectral', serif;
 }
 
-body {
+/*body {
   margin: 0 auto;
   min-width: 900px;
 }
 
 img {
-  padding: 100px 0px 0px 0px;
-  float: left;
+  padding: 200px 0px 0px 0px;
   width: 25%;
+  float: left;
+  display: inline;
 }
 
 .sidebar {
   color: red;
-  width: 25%;
+  display: inline;
+  margin: 20px 0px 0px -200px;
+}
+
+aside {
 }
 
 article {
@@ -38,4 +44,4 @@ ul {
 
 p {
   text-align: justify;
-}
+}*/
