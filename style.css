@@ -1,0 +1,41 @@
+* {
+  /*outline: 1px dotted orange;*/
+}
+
+body {
+  margin: 0 auto;
+  min-width: 900px;
+}
+
+img {
+  padding: 100px 0px 0px 0px;
+  float: left;
+  width: 25%;
+}
+
+.sidebar {
+  color: red;
+  width: 25%;
+}
+
+article {
+  display: inline-block;
+  float: right;
+  width: 25%;
+  text-align: justify;
+}
+
+h2 {
+  text-align: left;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+p {
+  text-align: justify;
+}
