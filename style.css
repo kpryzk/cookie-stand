@@ -3,19 +3,35 @@
   font-family: 'Spectral', serif;
 }
 
-/*body {
+body {
   margin: 0 auto;
   min-width: 900px;
 }
 
 img {
-  padding: 200px 0px 0px 0px;
+  padding: 70px 0px 0px 0px;
   width: 25%;
   float: left;
   display: inline;
 }
 
-.sidebar {
+table {
+  border-collapse: collapse;
+  width: 73%;
+
+}
+
+table, th, td {
+   border: 1px solid black;
+   padding: 5px;
+   text-align: left;
+
+}
+
+h1 {
+  text-align: center;
+}
+/*.sidebar {
   color: red;
   display: inline;
   margin: 20px 0px 0px -200px;
@@ -44,4 +60,4 @@ ul {
 
 p {
   text-align: justify;
-}*/
+}
