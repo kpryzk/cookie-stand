@@ -1,5 +1,6 @@
 * {
   /*outline: 1px dotted orange;*/
+  font-family: 'Spectral', serif;
 }
 
 body {
@@ -8,14 +9,35 @@ body {
 }
 
 img {
-  padding: 100px 0px 0px 0px;
-  float: left;
+  padding: 70px 0px 0px 0px;
   width: 25%;
+  float: left;
+  display: inline;
 }
 
-.sidebar {
+table {
+  border-collapse: collapse;
+  width: 73%;
+
+}
+
+table, th, td {
+   border: 1px solid black;
+   padding: 5px;
+   text-align: left;
+
+}
+
+h1 {
+  text-align: center;
+}
+/*.sidebar {
   color: red;
-  width: 25%;
+  display: inline;
+  margin: 20px 0px 0px -200px;
+}
+
+aside {
 }
 
 article {
