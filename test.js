@@ -32,6 +32,7 @@ function makeHeader() {
 function renderAllStores() {
   for (var i = 0; i < stores.length; i++) {
     stores[i].calcCookiesPerHour();
+    // stores[i].hoursTotal();
     stores[i].render();
   }
 }
@@ -42,8 +43,10 @@ function Store(name, minCustomer, maxCustomer, avgCookies){
   this.maxCustomer = maxCustomer;
   this.avgCookies = avgCookies;
   this.totalDailySales = 0;
+  this.hourlySales = 0;
   this.customersEachHour = [];
   this.cookiesEachHour = [];
+  this.hourlySalesAll = [];
   stores.push(this);
 }
 
@@ -65,6 +68,16 @@ Store.prototype.calcCookiesPerHour = function() {
   }
 };
 
+Store.prototype.hourTotals = function () {
+  var reference = [];
+  for (var i = 0; i < hours.length; i++) {
+    for (var j = 0; j < stores.length; j++) {
+      reference.push(this.hourlySales += this.cookiesEachHour[j]);
+      this.hourlySalesAll = reference;
+    }
+  }
+};
+
 Store.prototype.render = function() {
   //add store name to table
   var trEl = document.createElement('tr');
@@ -76,6 +89,11 @@ Store.prototype.render = function() {
     tdEl = document.createElement('td');
     tdEl.textContent = this.cookiesEachHour[i];
     trEl.appendChild(tdEl);
+  }
+  for (var j = 0; j < hours.length; j++){
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.hourSalesAll[j];
+    tdEl.appendChild(tdEl);
   }
   tdEl = document.createElement('td');
   tdEl.textContent = this.totalDailySales;
