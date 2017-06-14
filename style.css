@@ -5,19 +5,20 @@
 
 body {
   margin: 0 auto;
-  min-width: 900px;
+  /*width: 100%;s
+  min-width: 750px;*/
 }
 
 img {
   padding: 70px 0px 0px 0px;
   width: 25%;
   float: left;
-  display: inline;
+  display: inline-block;
 }
 
 table {
   border-collapse: collapse;
-  width: 73%;
+  min-width: 750px;
 
 }
 

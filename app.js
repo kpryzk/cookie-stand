@@ -4,10 +4,58 @@
 var theTable = document.getElementById('salmoncookies');
 
 //array of hours that stores are open
-var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
-//empty array to be populated by store object constructor
-var stores = [];
+//an object constructor to make each store
+function Store(name, minCustomer, maxCustomer, avgCookies){
+  this.name = name;
+  this.minCustomer = minCustomer;
+  this.maxCustomer = maxCustomer;
+  this.avgCookies = avgCookies;
+  this.totalDailySales = 0;
+  this.customersEachHour = [];
+  this.cookiesEachHour = [];
+  this.hourlySales = 0;
+  Store.all.push(this);
+}
+
+//use randomizing function to create a number of customers each hour
+Store.prototype.calcCustomersThisHour = function() {
+  var reference = [];
+  for (var i = 0; i < hours.length; i++){
+    reference.push(randomCustomer(this.minCustomer, this.maxCustomer));
+    this.customersEachHour = reference;
+  }
+};
+
+//estimate how many cookies sold based on randomized customers and average cookies sold
+Store.prototype.calcCookiesPerHour = function() {
+  this.calcCustomersThisHour();
+  var reference = [];
+  for (var i = 0; i < hours.length; i++) {
+    reference.push(Math.ceil(this.customersEachHour[i] * this.avgCookies));
+    this.cookiesEachHour = reference;
+    this.totalDailySales += this.cookiesEachHour[i];
+  }
+};
+
+Store.prototype.render = function() {
+  //add store name to table
+  var trEl = document.createElement('tr');
+  var tdEl = document.createElement('td');
+  tdEl.textContent = this.name;
+  trEl.appendChild(tdEl);
+  //add hourly cookie sales to table
+  for (var i = 0; i < hours.length; i ++) {
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.cookiesEachHour[i];
+    trEl.appendChild(tdEl);
+  }
+  tdEl = document.createElement('td');
+  tdEl.textContent = this.totalDailySales;
+  trEl.appendChild(tdEl);
+  theTable.appendChild(trEl);
+};
 
 //randomize function for # of customers per hour
 function randomCustomer(min, max) {
@@ -37,110 +85,38 @@ function makeHeader() {
 
 //this function runs functions
 function renderAllStores() {
-  for (var i = 0; i < stores.length; i++) {
-    stores[i].calcCookiesPerHour();
-    stores[i].render();
+  for (var i = 0; i < Store.all.length; i++) {
+    Store.all[i].calcCookiesPerHour();
+    Store.all[i].render();
   }
-}
-
-function hourlySalesAllAt(hour) {
-  var total = 0;
-  for (var i = 0; i < stores.length; i++) {
-    var store = stores[i];
-    total += store.cookiesEachHour[hour];
-  }
-  return total;
-}
-
-function hourlySalesAll() {
-  var total = 0;
-  for (var i = 0; i < stores.length; i++) {
-    var store = stores[i];
-    total += store.totalDailySales;
-  }
-  return total;
 }
 
 function makeFooter() {
-  var tfEl = document.createElement('tfoot');
+  // var tfEl = document.createElement('tfoot');
   var trEl = document.createElement('tr');
-  var tdEl = document.createElement('td');
-  tdEl.textContent = 'All Stores';
-  trEl.appendChild(tdEl);
-  tfEl.appendChild(trEl);
-  for (var i = 0; i < hours.length; i++) {
-    tdEl = document.createElement('td');
-    tdEl.textContent = hourlySalesAllAt(i);
-    trEl.appendChild(tdEl);
-  }
-  tdEl = document.createElement('td');
-  tdEl.textContent = hourlySalesAll();
-  trEl.appendChild(tdEl);
-  theTable.appendChild(tfEl);
-}
-
-//an object constructor to make each store
-function Store(name, minCustomer, maxCustomer, avgCookies){
-  this.name = name;
-  this.minCustomer = minCustomer;
-  this.maxCustomer = maxCustomer;
-  this.avgCookies = avgCookies;
-  this.totalDailySales = 0;
-  this.customersEachHour = [];
-  this.cookiesEachHour = [];
-  this.hourlySales = 0;
-  stores.push(this);
-}
-
-//use randomizing function to create a number of customers each hour
-Store.prototype.calcCustomersThisHour = function() {
-  var reference = [];
+  var thEl = document.createElement('th');
+  thEl.textContent = 'All Stores';
+  trEl.appendChild(thEl);
+  var hourlySalesAllTotal = 0;
+  var hourlySalesAll = 0;
   for (var i = 0; i < hours.length; i++){
-    reference.push(randomCustomer(this.minCustomer, this.maxCustomer));
-    this.customersEachHour = reference;
+    hourlySalesAll = 0;
+    for (var j = 0; j < Store.all.length; j++){
+      hourlySalesAll += Store.all[j].cookiesEachHour[i];
+      hourlySalesAllTotal += Store.all[j].cookiesEachHour[i];
+    }
+    thEl = document.createElement('th');
+    thEl.textContent = hourlySalesAll;
+    trEl.appendChild(thEl);
   }
-};
-
-//estimate how many cookies sold based on randomized customers and average cookies sold
-Store.prototype.calcCookiesPerHour = function() {
-  this.calcCustomersThisHour();
-  var reference = [];
-  for (var i = 0; i < hours.length; i++) {
-    reference.push(Math.ceil(this.customersEachHour[i] * this.avgCookies));
-    this.cookiesEachHour = reference;
-    this.totalDailySales += this.cookiesEachHour[i];
-  }
-};
-
-// Store.prototype.hourTotals = function () {
-//   var reference = [];
-//   for (var i = 0; i < hours.length; i++) {
-//     for (var j = 0; j < stores.length; j++) {
-//       reference.push(this.hourlySales += this.cookiesEachHour[j]);
-//       this.hourlySalesAll = reference;
-//     }
-//   }
-//   return reference;
-// };
-
-Store.prototype.render = function() {
-  //add store name to table
-  var trEl = document.createElement('tr');
-  var tdEl = document.createElement('td');
-  tdEl.textContent = this.name;
-  trEl.appendChild(tdEl);
-  //add hourly cookie sales to table
-  for (var i = 0; i < hours.length; i ++) {
-    tdEl = document.createElement('td');
-    tdEl.textContent = this.cookiesEachHour[i];
-    trEl.appendChild(tdEl);
-  }
-  tdEl = document.createElement('td');
-  tdEl.textContent = this.totalDailySales;
-  trEl.appendChild(tdEl);
+  thEl = document.createElement('th');
+  thEl.textContent = hourlySalesAllTotal;
+  trEl.appendChild(thEl);
   theTable.appendChild(trEl);
-};
+}
 
+//empty array to be populated by Store object constructor
+Store.all = [];
 new Store('Pike Place Market', 23, 65, 6.3);
 new Store('SeaTac Airport', 3, 24, 1.2);
 new Store('Seattle Center', 11, 38, 3.7);
