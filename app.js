@@ -6,6 +6,12 @@ var theTable = document.getElementById('salmoncookies');
 //array of hours that stores are open
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
+//formstuff
+var cookieForm = document.getElementById('cookie-form');
+// var clearCookieForm = document.getElementsById('clear-cookie-form');
+
+var allstores = [];
+
 //an object constructor to make each store
 function Store(name, minCustomer, maxCustomer, avgCookies){
   this.name = name;
@@ -16,7 +22,7 @@ function Store(name, minCustomer, maxCustomer, avgCookies){
   this.customersEachHour = [];
   this.cookiesEachHour = [];
   this.hourlySales = 0;
-  Store.all.push(this);
+  allstores.push(this);
 }
 
 //use randomizing function to create a number of customers each hour
@@ -40,6 +46,7 @@ Store.prototype.calcCookiesPerHour = function() {
 };
 
 Store.prototype.render = function() {
+  this.calcCookiesPerHour();
   //add store name to table
   var trEl = document.createElement('tr');
   var tdEl = document.createElement('td');
@@ -55,6 +62,7 @@ Store.prototype.render = function() {
   tdEl.textContent = this.totalDailySales;
   trEl.appendChild(tdEl);
   theTable.appendChild(trEl);
+  makeFooter();
 };
 
 //randomize function for # of customers per hour
@@ -85,38 +93,62 @@ function makeHeader() {
 
 //this function runs functions
 function renderAllStores() {
-  for (var i = 0; i < Store.all.length; i++) {
-    Store.all[i].calcCookiesPerHour();
-    Store.all[i].render();
+  // cookieForm.innerHTML = '';
+  for (var i = 0; i < allstores.length; i++) {
+    // allstores[i].calcCookiesPerHour();
+    allstores[i].render();
   }
 }
 
 function makeFooter() {
-  // var tfEl = document.createElement('tfoot');
-  var trEl = document.createElement('tr');
+  removeFooter();
+  var tfEl = document.createElement('tfoot');
+  tfEl.id = 'totalfooter';
+  theTable.appendChild(tfEl);
+  // var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
   thEl.textContent = 'All Stores';
-  trEl.appendChild(thEl);
+  tfEl.appendChild(thEl);
   var hourlySalesAllTotal = 0;
   var hourlySalesAll = 0;
   for (var i = 0; i < hours.length; i++){
     hourlySalesAll = 0;
-    for (var j = 0; j < Store.all.length; j++){
-      hourlySalesAll += Store.all[j].cookiesEachHour[i];
-      hourlySalesAllTotal += Store.all[j].cookiesEachHour[i];
+    for (var j = 0; j < allstores.length; j++){
+      hourlySalesAll += allstores[j].cookiesEachHour[i];
+      hourlySalesAllTotal += allstores[j].cookiesEachHour[i];
     }
     thEl = document.createElement('th');
     thEl.textContent = hourlySalesAll;
-    trEl.appendChild(thEl);
+    tfEl.appendChild(thEl);
   }
   thEl = document.createElement('th');
   thEl.textContent = hourlySalesAllTotal;
-  trEl.appendChild(thEl);
-  theTable.appendChild(trEl);
+  tfEl.appendChild(thEl);
+  theTable.appendChild(tfEl);
+}
+
+function removeFooter(){
+  var footerRef = document.getElementById('totalfooter');
+  if (footerRef !== null) {
+    footerRef.parentElement.removeChild(footerRef);
+  }
+}
+
+function formSubmission(event) {
+  event.preventDefault();
+  var name = event.target.name.value;
+  var minCustomer = parseInt(event.target.min.value);
+  var maxCustomer = parseInt(event.target.max.value);
+  var avgCookies = parseInt(event.target.avg.value);
+  var newStore = new Store (name, minCustomer, maxCustomer, avgCookies);
+  event.target.name.value = null;
+  event.target.min.value = null;
+  event.target.max.value = null;
+  event.target.avg.value = null;
+  newStore.render();
 }
 
 //empty array to be populated by Store object constructor
-Store.all = [];
 new Store('Pike Place Market', 23, 65, 6.3);
 new Store('SeaTac Airport', 3, 24, 1.2);
 new Store('Seattle Center', 11, 38, 3.7);
@@ -125,4 +157,9 @@ new Store('Alki', 2, 24, 1.2);
 
 makeHeader();
 renderAllStores();
-makeFooter();
+
+cookieForm.addEventListener('submit', formSubmission);
+// clearCookieForm.addEventListener('click', function() {
+//   cookieForm.innerHTML = '';
+//   allstores = [];
+// });
