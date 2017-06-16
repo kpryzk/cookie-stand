@@ -1,14 +1,8 @@
 'use strict';
 
-//connects to empty table on HTML page
 var theTable = document.getElementById('salmoncookies');
-
-//array of hours that stores are open
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-
-//a form!
 var cookieForm = document.getElementById('cookie-form');
-
 var allstores = [];
 
 //an object constructor to make each store
@@ -26,7 +20,7 @@ function Store(name, minCustomer, maxCustomer, avgCookies){
   allstores.push(this);
 }
 
-//use randomizing function to create a number of customers each hour
+//randomizing function to create a number of customers each hour
 Store.prototype.calcCustomersThisHour = function() {
   var reference = [];
   for (var i = 0; i < hours.length; i++){
@@ -35,7 +29,7 @@ Store.prototype.calcCustomersThisHour = function() {
   }
 };
 
-//estimate how many cookies sold based on randomized customers and average cookies sold
+//how many cookies sold based on randomized customers and average cookies sold
 Store.prototype.calcCookiesPerHour = function() {
   var reference = [];
   for (var i = 0; i < hours.length; i++) {
@@ -45,81 +39,36 @@ Store.prototype.calcCookiesPerHour = function() {
   }
 };
 
+//render table of hourly cookie info
 Store.prototype.render = function() {
   //add store name to table
   var trEl = document.createElement('tr');
-  var tdEl = document.createElement('td');
-  tdEl.textContent = this.name;
-  trEl.appendChild(tdEl);
+  makeElement('td', this.name, trEl);
   //add hourly cookie sales to table
   for (var i = 0; i < hours.length; i ++) {
-    tdEl = document.createElement('td');
-    tdEl.textContent = this.cookiesEachHour[i];
-    trEl.appendChild(tdEl);
+    makeElement('td', this.cookiesEachHour[i], trEl);
   }
   //add daily sales
-  tdEl = document.createElement('td');
-  tdEl.textContent = this.totalDailySales;
-  trEl.appendChild(tdEl);
+  makeElement('td', this.totalDailySales, trEl);
   theTable.appendChild(trEl);
   // makeFooter();
 };
-
-new Store('Pike Place Market', 23, 65, 6.3);
-new Store('SeaTac Airport', 3, 24, 1.2);
-new Store('Seattle Center', 11, 38, 3.7);
-new Store('Capitol Hill', 20, 38, 2.3);
-new Store('Alki', 2, 24, 1.2);
 
 //randomize function for # of customers per hour
 function randomCustomer(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function formSubmission(event) {
-  event.preventDefault();
-  //call variables
-  var name = event.target.name.value;
-  var minCustomer = parseInt(event.target.min.value);
-  var maxCustomer = parseInt(event.target.max.value);
-  var avgCookies = parseFloat(event.target.avg.value);
-
-  if (!event.target.name.value || !event.target.min.value || !event.target.max.value || !event.target.avg.value) {
-    return alert('Fields cannot be empty!');
-  }
-
-  //if location matches, update store - else create new store
-//create new store
-  for (var i = 0; i < allstores.length; i++) {
-    if (name === allstores[i].name) {
-      allstores[i].name = name;
-      allstores[i].minCustomer = minCustomer;
-      allstores[i].maxCustomer = maxCustomer;
-      allstores[i].avgCookies = avgCookies;
-      allstores[i].customersEachHour = [];
-      allstores[i].cookiesEachHour = [];
-      allstores[i].totalDailySales = 0;
-      allstores[i].calcCustomersThisHour();
-      allstores[i].calcCookiesPerHour();
-      event.target.name.value = null;
-      event.target.min.value = null;
-      event.target.max.value = null;
-      event.target.avg.value = null;
-      renderTable();
-      return;
-    }
-  }
-  new Store (name, minCustomer, maxCustomer, avgCookies);
-//clear form fields
-  event.target.name.value = null;
-  event.target.min.value = null;
-  event.target.max.value = null;
-  event.target.avg.value = null;
-  //render newStore
-  renderTable();
+//create and add content and append for table making
+function makeElement(type, content, parent){
+  //create
+  var newEl = document.createElement(type);
+  //content
+  newEl.textContent = content;
+  //apend
+  parent.appendChild(newEl);
 }
 
-//header function
 function makeHeader() {
   //space to accomodate store name
   var trEl = document.createElement('tr');
@@ -166,6 +115,53 @@ function makeFooter() {
   theTable.appendChild(trEl);
 }
 
+function formSubmission(event) {
+  event.preventDefault();
+  //call variables
+  var name = event.target.name.value;
+  var minCustomer = parseInt(event.target.min.value);
+  var maxCustomer = parseInt(event.target.max.value);
+  var avgCookies = parseFloat(event.target.avg.value);
+
+  if (!event.target.name.value || !event.target.min.value || !event.target.max.value || !event.target.avg.value) {
+    return alert('Fields cannot be empty!');
+  }
+
+  if (event.target.min.value > event.target.max.value) {
+    return alert('Min. Customers cannot be greater than Max. Customers');
+  }
+
+  //if location matches, update store - else create new store
+  //create new store
+  for (var i = 0; i < allstores.length; i++) {
+    if (name === allstores[i].name) {
+      allstores[i].name = name;
+      allstores[i].minCustomer = minCustomer;
+      allstores[i].maxCustomer = maxCustomer;
+      allstores[i].avgCookies = avgCookies;
+      allstores[i].customersEachHour = [];
+      allstores[i].cookiesEachHour = [];
+      allstores[i].totalDailySales = 0;
+      allstores[i].calcCustomersThisHour();
+      allstores[i].calcCookiesPerHour();
+      event.target.name.value = null;
+      event.target.min.value = null;
+      event.target.max.value = null;
+      event.target.avg.value = null;
+      renderTable();
+      return;
+    }
+  }
+  new Store (name, minCustomer, maxCustomer, avgCookies);
+  //clear form fields
+  event.target.name.value = null;
+  event.target.min.value = null;
+  event.target.max.value = null;
+  event.target.avg.value = null;
+  //render newStore
+  renderTable();
+}
+
 function renderTable() {
   theTable.innerHTML = '';
   makeHeader();
@@ -175,5 +171,12 @@ function renderTable() {
   makeFooter();
 }
 
+new Store('Pike Place Market', 23, 65, 6.3);
+new Store('SeaTac Airport', 3, 24, 1.2);
+new Store('Seattle Center', 11, 38, 3.7);
+new Store('Capitol Hill', 20, 38, 2.3);
+new Store('Alki', 2, 24, 1.2);
+
 renderTable();
+
 cookieForm.addEventListener('submit', formSubmission);

@@ -1,5 +1,5 @@
 * {
-/*   outline: 1px dotted orange; */
+   /*outline: 1px dotted orange;*/
   font-family: 'Spectral', serif;
 }
 
@@ -33,6 +33,10 @@ fieldset {
   text-align: center;
   float: right;
   font-size: 13px;
+}
+
+legend {
+  font-size: 20px;
 }
 
 .logo {
@@ -108,7 +112,7 @@ h3 {
 
 .garbage {
   width: 75%;
-  margin: 150px 0px 0px 0px;
+  margin: 100px 0px 0px 0px;
   text-align: center;
   float: right;
   display: inline-block;
@@ -152,5 +156,47 @@ h4:before {
 }
 
 h4:before {
+  left: 0;
+}
+
+/*footer {
+  width: 75%;
+  text-align: center;
+  float: right;*/
+  /*background: url("https://raw.githubusercontent.com/codefellows/seattle-201d23/master/class-09-css_wireframe_part_1/lab/assets/chinook.jpg");
+  background-size: 25%;*/
+}
+
+.fishfish {
+  width: 75%;
+  margin: 0 auto;
+  float: right;
+  display: inline-block;
+}
+
+h5 {
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 5px;
+  position: relative;
+}
+
+h5 span {
+  background: #fff;
+  padding: 0 15px;
+  position: relative;
+}
+
+h5:before {
+  background: salmon;
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+h5:before {
   left: 0;
 }
