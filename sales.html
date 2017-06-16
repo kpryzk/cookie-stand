@@ -4,12 +4,16 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rochester|Spectral:400,700,700i,800,800i" rel="stylesheet">
     <title>FISH SALES</title>
   </head>
 
   <body>
-    <h1> Salmon Cookie Sales Data</h1>
+    <div class="title">
+      <h2 class="logo" id="pat"><span>Pat's Famous</span></h2>
+      <h1 class="logo">Salmon Cookies</h1>
+      <h2 class="logo" id="favorite"><span>a local favorite</span></h2>
+    </div>
 
     <form id="cookie-form">
       <fieldset>
@@ -18,10 +22,10 @@
         <input name="name" type="text" size = "30"/>
 
         <label for="min">Min. Customers</label>
-        <input name="min" type="text" />
+        <input name="min" type="number"/>
 
         <label for="max">Max. Customers</label>
-        <input name="max" type="text"/>
+        <input name="max" type="number"/>
 
         <label for="avg">Avg. Cookies</label>
         <input name="avg" type="text"/>
@@ -29,17 +33,6 @@
         <button type="submit">Add Store</button>
       </fieldset>
     </form>
-
-    <button id="clear-cookie-form">Clear Stores</button>
-  <div>
-
-  </div>
-    <aside>
-      <!-- <h4 class="sidebar">Seattle's Finest</h4>
-      <h3 class="sidebar"> Salmon Cookies </h3>
-      <h4 class="sidebar">a local favorite</h4> -->
-      <img src="https://68.media.tumblr.com/d4d56057313bf094e2f782d4e259d0d5/tumblr_orgkanuPAG1qc2hsoo1_540.jpg">
-    </aside>
 
     <table id="salmoncookies"></table>
 
