@@ -1,64 +1,156 @@
 * {
-  /*outline: 1px dotted orange;*/
+/*   outline: 1px dotted orange; */
   font-family: 'Spectral', serif;
 }
 
 body {
   margin: 0 auto;
-  /*width: 100%;s
-  min-width: 750px;*/
+  width: 100%;
+  background: url("https://68.media.tumblr.com/d4d56057313bf094e2f782d4e259d0d5/tumblr_orgkanuPAG1qc2hsoo1_540.jpg");
+  background-repeat: no-repeat;
+  background-position: 0px 100px;
+  background-size: 25%;
+  min-width: 1099px;
 }
 
-img {
-  padding: 70px 0px 0px 0px;
-  width: 25%;
-  float: left;
-  display: inline-block;
-}
-
-table {
+ table {
   border-collapse: collapse;
-  min-width: 750px;
-
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  float: right;
 }
 
 table, th, td {
    border: 1px solid black;
    padding: 5px;
    text-align: left;
+}
 
+fieldset {
+  width: 73.5%;
+  margin: 0 auto;
+  text-align: center;
+  float: right;
+  font-size: 13px;
+}
+
+.logo {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  float: right;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 50px;
+  letter-spacing: 5px;
+  position: relative;
+}
+
+h2 span {
+  background: #fff;
+  padding: 0 15px;
+  position: relative;
+}
+
+h2:before {
+  background: salmon;
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+h2:before {
+  left: 0;
+}
+
+.title {
+  margin: 100px 0px 0px 0px;
+}
+
+#pat {
+  margin: 0px 0px -30px 0px;
+}
+
+#favorite {
+  margin: -15px 0px 0px 0px;
 }
 
 h1 {
-  text-align: center;
-}
-/*.sidebar {
-  color: red;
-  display: inline;
-  margin: 20px 0px 0px -200px;
+  font-family: 'Rochester', serif;
+  font-size: 150px;
+  position: relative;
 }
 
-aside {
+.locations {
+  width: 75%;
+  margin: 100px 0px 0px 0px;
+  text-align: center;
+  float: right;
 }
 
 article {
   display: inline-block;
+  min-width: 19.5%;
+  border-right: 1px solid black;
+}
+
+h3 {
+  margin-top: -30px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.garbage {
+  width: 75%;
+  margin: 150px 0px 0px 0px;
+  text-align: center;
   float: right;
-  width: 25%;
-  text-align: justify;
+  display: inline-block;
+}
+.slides {
+  height: 175px;
+  width: 200px;
+  margin: 0 auto;
 }
 
-h2 {
-  text-align: left;
+.people {
+  width: 75%;
+  margin: 150px 0px 0px 0px;
+  text-align: center;
+  display: inline-block;
+  width: 300px;
+  margin: 0 auto;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: justify;
+h4 {
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 5px;
+  position: relative;
 }
 
-p {
-  text-align: justify;
-}*/
+h4 span {
+  background: #fff;
+  padding: 0 15px;
+  position: relative;
+}
+
+h4:before {
+  background: salmon;
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+h4:before {
+  left: 0;
+}

@@ -83,6 +83,11 @@ function formSubmission(event) {
   var minCustomer = parseInt(event.target.min.value);
   var maxCustomer = parseInt(event.target.max.value);
   var avgCookies = parseFloat(event.target.avg.value);
+
+  if (!event.target.name.value || !event.target.min.value || !event.target.max.value || !event.target.avg.value) {
+    return alert('Fields cannot be empty!');
+  }
+
   //if location matches, update store - else create new store
 //create new store
   for (var i = 0; i < allstores.length; i++) {
