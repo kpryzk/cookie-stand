@@ -19,6 +19,7 @@ body {
   margin: 0 auto;
   text-align: center;
   float: right;
+  margin-bottom: 100px;
 }
 
 table, th, td {
@@ -33,6 +34,7 @@ fieldset {
   text-align: center;
   float: right;
   font-size: 13px;
+  margin: 50px 0px 25px 0px;
 }
 
 legend {
@@ -125,11 +127,11 @@ h3 {
 
 .people {
   width: 75%;
-  margin: 150px 0px 0px 0px;
-  text-align: center;
+  margin: 0px 0px 70px 0px;
   display: inline-block;
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
+  float: left;
 }
 
 h4 {
@@ -159,12 +161,11 @@ h4:before {
   left: 0;
 }
 
-/*footer {
-  width: 75%;
-  text-align: center;
-  float: right;*/
-  /*background: url("https://raw.githubusercontent.com/codefellows/seattle-201d23/master/class-09-css_wireframe_part_1/lab/assets/chinook.jpg");
-  background-size: 25%;*/
+.family p {
+  display: inline-block;
+  overflow: auto;
+  width: 400px;
+  text-align: justify;
 }
 
 .fishfish {
@@ -173,6 +174,13 @@ h4:before {
   float: right;
   display: inline-block;
 }
+
+.familyfish {
+  width: 100px;
+  margin-left: 150px;
+  margin-bottom: 20px
+}
+
 
 h5 {
   text-transform: uppercase;
@@ -199,4 +207,7 @@ h5:before {
 
 h5:before {
   left: 0;
+}
+footer {
+  margin-top: 100px;
 }
