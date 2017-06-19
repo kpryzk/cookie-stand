@@ -208,6 +208,11 @@ h5:before {
 h5:before {
   left: 0;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
+
 footer {
   margin-top: 100px;
 }
